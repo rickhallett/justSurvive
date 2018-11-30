@@ -130,6 +130,8 @@ let game = new Controller(view, model);
 
 view.setController(game);
 
+
+
 // i.ready();
 // i.name("Lemming");
 // i.train();
