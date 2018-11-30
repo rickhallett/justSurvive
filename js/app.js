@@ -112,7 +112,7 @@ class Controller {
       setTimeout(() => {
         const gains = Math.ceil(Math.random() * 10);
         resolve(gains);
-      }, 5000);
+      }, 3000);
     });
 
     set.then((str) => {
@@ -130,6 +130,6 @@ let game = new Controller(view, model);
 
 view.setController(game);
 
-i.ready();
-i.name("Lemming");
-i.train();
+// i.ready();
+// i.name("Lemming");
+// i.train();
