@@ -1,37 +1,20 @@
-// function createNode ( element ) {
-//   return document.createElement( element );
-// }
-
-// function append ( parent, el ) {
-//   return parent.appendChild( el );
-// }
-
-// const ul = document.getElementById( 'authors' );
-// const url = 'https://randomuser.me/api/?results=10';
-// fetch( url )
-//   .then( ( resp ) => resp.json() )
-//   .then( function ( data ) {
-//     let authors = data.results;
-//     return authors.map( function ( author ) {
-//       let li = createNode( 'li' ),
-//         img = createNode( 'img' ),
-//         span = createNode( 'span' );
-//       img.src = author.picture.medium;
-//       span.innerHTML = `${author.name.first} ${author.name.last}`;
-//       append( li, img );
-//       append( li, span );
-//       append( ul, li );
-//     } )
-//   } )
-//   .catch( function ( error ) {
-//     console.log( error );
-//   } );
-
-// sep apr june nov
-class GameClock {
+class GameClockData {
   constructor() {
     // iterable values
-    this.months = ['Jan', 'Feb', 'Mar'];
+    this.months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     this.week = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
     this.monthDays = {
       Jan: 31,
@@ -72,7 +55,15 @@ class GameClock {
       '21:00',
       '22:00',
       '23:00',
+      // '24:00',
     ];
+  }
+}
+
+class GameClock extends GameClockData {
+  constructor() {
+    super();
+
     this.iterateMonth = this.monthClock(this.months);
     this.iterateDay = this.dayClock(this.week);
     this.iterateHour = this.hourClock(this.hours);
@@ -82,38 +73,49 @@ class GameClock {
     this.month = this.iterateMonth.next().value;
     this.date = 0;
     this.day = this.iterateDay.next().value;
-    this.hour = this.iterateHour.next().value;
+    // this.hour = this.iterateHour.next().value;
+    this.hour = '00:00';
 
-    debugger;
+    this.intervalCount = 0;
+    this.nIntervId;
+    // debugger;
   }
 
-  yearClock() {
+  iterateYear() {
     return this.year++;
   }
 
-  dateClock() {
+  iterateDate() {
     return this.date++;
   }
 
   // iterates over months
   *monthClock(months) {
     for (const name of months) {
-      this.month = yield name;
+      yield name;
+
+      if (name == 'Dec') {
+        this.iterateMonth = this.monthClock(this.months);
+      }
+
+      if (name === 'Dec' && this.date === 31) {
+        this.iterateYear();
+      }
     }
   }
 
   // iterates over week days and increments date
   *dayClock(week) {
     for (const day of week) {
-      this.date++;
-      console.log(`date: ${this.date}`);
+      this.iterateDate();
+      yield day;
 
-      this.day = yield day;
       // if date exceeds month limit, reset
       if (this.date === this.monthDays[this.month]) {
         this.month = this.iterateMonth.next().value;
         this.date = 0;
       }
+
       // if reaches end of iterable, reset
       if (day == 'Sat') {
         this.iterateDay = this.dayClock(this.week);
@@ -123,21 +125,43 @@ class GameClock {
 
   *hourClock(hours) {
     for (const hour of hours) {
+      yield hour;
 
-      console.log(`${this.hour} ${this.day} ${this.month }${this.year}`);
-
-      this.hour = yield hour;
       // if end of iterable, reset for next use
-      if (hour === '22:00') {
-        this.iterateHours = this.hourClock(this.hours);
+      if (hour === '23:00') {
         this.day = this.iterateDay.next().value;
       }
     }
   }
+
+  runTime() {
+    this.intervalCount++;
+    if(this.intervalCount > 10) clearInterval(this.nIntervId);
+
+    this.hour = this.iterateHour.next().value;
+
+    // reset the generator when it reaches its terminal value
+    if (this.hour === undefined) {
+      this.iterateHour = this.hourClock(this.hours);
+      this.hour = this.iterateHour.next().value;
+    }
+
+    console.log(
+      `${this.day} ${this.date} ${this.month} ${this.hour} ${this.year}`,
+    );
+  }
+
+  startClockInterval(ms) {
+    this.nIntervId = setInterval(this.runTime, ms);
+  }
+
+  // Example usage: drive from run time in hours
+  // let gc = new GameClock();
+
+  // for ( let i = 1; i < 744; i++ ) {
+  //   gc.runTime();
+  // }
 }
 
 let gc = new GameClock();
-
-for (let i = 1; i < 96; i++) {
-  gc.iterateHour.next();
-}
+gc.startClockInterval(1000);
