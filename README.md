@@ -78,6 +78,22 @@ character.intelligence = 999999;
 
 7. Create a WorldMap class that uses weak maps/Maps to simulate a 2D board, and a corresponding Navigator class that can take user commands to 'walk' over this map according to it's restrictions, and pipe up and significant tile modifiers up to the character/game state
 
-8. Build a Schedule class that will allow the player to 'queue up' desired commands and execute them in batches (multiple movements, enemy-combat-combos etc).
+8. Build a Schedule class that will use looping generator functions that allow the player to 'queue up' desired commands and execute them in batches (multiple movements, enemy-combat-combos etc).
 
 9. Build in timer/action based energy system that simulates day/night cycles. Allow the user to rest over custom periods of game time (for various reward/risk...).
+
+10. Use discogs API to bring back random cultural information
+
+11. Use a weather API to determine the weather conditions?
+
+12. Research what APIs are out there that could be used to enhance the game features
+
+13. Author api github
+
+14. test clear()vs cmds
+
+15. Specifically practice using async map/reduce/filter and await promise.all
+
+16. Use promise.race if scanning out against multiple incoming responses and only caring about the fastest one
+
+17. Use Proxies to sanitise input/output on important attribute methods
