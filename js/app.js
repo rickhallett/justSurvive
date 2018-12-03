@@ -71,7 +71,7 @@ class View {
   }
 
   beginTraining() {
-    console.log("You begin 20 set of incline hammer bench press!");
+    console.log("You begin 20 sets of incline hammer bench press!");
   }
 
   alertGains(str, gains) {
@@ -116,10 +116,25 @@ class View {
 //==============================
 
 class Model {
-  constructor(seedData) {
+  constructor(seedData, store) {
+    this.store = new Store('just-survive');
     this.game = seedData;
     this.creeperCount = 0;
     this.str = 1;
+  }
+
+  initialisePlayer(data) {
+    const {
+      name,
+      age,
+      health,
+      hunger,
+      strength
+    } = data.player;
+
+    return {
+      name, age, health, hunger, strength
+    };
   }
 }
 
@@ -143,7 +158,7 @@ class Controller {
   }
 
   initGameClock() {
-    let self = this;
+    const self = this;
     self.timerId = setTimeout( function tick() {
       self.clockInterface(self.gameClock.runTime());
       self.timerId = setTimeout( tick, 1000 ); // (*)
@@ -193,9 +208,9 @@ class Controller {
 
 //==============================
 
-let view = (i = new View());
-let model = new Model(data);
-let game = new Controller(view, model, GameClock);
+const view = (i = new View());
+const model = new Model(data);
+const game = new Controller(view, model, GameClock);
 
 view.setController(game);
 
