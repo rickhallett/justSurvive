@@ -149,6 +149,7 @@ let game = new Controller(view, model, GameClock);
 view.setController(game);
 
 i.ready();
+// i.stop();
 
 // i.name("Lemming");
 // i.train();

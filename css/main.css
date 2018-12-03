@@ -17,3 +17,11 @@
 
 .instructions__code {
 }
+
+#timer {
+  margin-top: 8vh;
+}
+
+#timer span {
+  margin-left: 5px;
+}
