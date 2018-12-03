@@ -86,10 +86,10 @@ class MapWalker {
   constructor(map) {
     this.map = map;
     this.position = {
-      // x: this.randomPostion(map.squareLength),
-      // y: this.randomPostion(map.squareLength),
-      x: 0,
-      y: 0,
+      x: this.randomPostion(map.squareLength),
+      y: this.randomPostion(map.squareLength),
+      // x: 0,
+      // y: 0,
     };
   }
 
@@ -98,38 +98,43 @@ class MapWalker {
   }
 
   moveNorth() {
-    if (this.map.grid[this.position.x][this.position.y].canMove.north) {
-      this.position.x--;
-    } else {
-      console.log('You cannot move north from here!');
-    }
-    return this.position;
+    return this.move('north');
   }
 
   moveSouth() {
-    if (this.map.grid[this.position.x][this.position.y].canMove.south) {
-      this.position.x++;
-    } else {
-      console.log('You cannot move south from here!');
-    }
-    return this.position;
+    return this.move('south');
   }
 
   moveEast() {
-    if (this.map.grid[this.position.x][this.position.y].canMove.east) {
-      this.position.y++;
-    } else {
-      console.log('You cannot move east from here!');
-    }
-    return this.position;
+    return this.move('east');
   }
 
   moveWest() {
-    if (this.map.grid[this.position.x][this.position.y].canMove.west) {
-      this.position.y--;
+    return this.move('west');
+  }
+
+  move(direction) {
+    if (this.map.grid[this.position.x][this.position.y].canMove[direction]) {
+      switch (direction) {
+        case 'north':
+          this.position.x--;
+          break;
+        case 'south':
+          this.position.x++;
+          break;
+        case 'east':
+          this.position.y++;
+          break;
+        case 'west':
+          this.position.y--
+          break;
+        default:
+          break;
+      }
     } else {
-      console.log('You cannot move west from here!');
+      console.log(`You cannot move ${direction} from here!`);
     }
+
     return this.position;
   }
 }
