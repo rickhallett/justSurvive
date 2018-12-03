@@ -14,6 +14,8 @@ class View {
         }
       }
     } );
+
+    this.displayBackground = document.querySelector('body');
   }
 
   setController(ctrl) {
@@ -85,6 +87,29 @@ class View {
     this.clockDisplay.clock.month = data.month;
     this.clockDisplay.clock.hour = data.hour;
     this.clockDisplay.clock.year = data.year;
+    this.dayNightAnimation(data);
+  }
+
+  dayNightAnimation(time){
+    switch (time.hour) {
+      case '00:00':
+        this.displayBackground.classList = 'midnight';
+        break;
+      case '04:00':
+        this.displayBackground.classList = 'dawn';
+        break;
+      case '09:00':
+        this.displayBackground.classList = 'midday';
+        break;
+      case '16:00':
+        this.displayBackground.classList = 'dusk'
+        break;
+      case '19:00':
+        this.displayBackground.classList = 'night'
+        break;
+      default:
+        break;
+    }
   }
 }
 
@@ -120,7 +145,7 @@ class Controller {
   initGameClock() {
     let self = this;
     self.timerId = setTimeout( function tick() {
-      self.view.updateClock(self.gameClock.runTime());
+      self.clockInterface(self.gameClock.runTime());
       self.timerId = setTimeout( tick, 1000 ); // (*)
     }, 1000 );
   }
@@ -129,8 +154,8 @@ class Controller {
     clearInterval(this.timerId);
   }
 
-  clockInterface(){
-    
+  clockInterface(timeData){
+    this.view.updateClock(timeData);
   }
 
   setName(name) {
@@ -173,6 +198,12 @@ let model = new Model(data);
 let game = new Controller(view, model, GameClock);
 
 view.setController(game);
+
+/* TESTING AREA */
+
+console.log(view);
+console.log(model);
+console.log(game);
 
 i.ready();
 // i.stop();
