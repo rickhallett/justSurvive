@@ -32,6 +32,7 @@ class Node {
 class Map {
   constructor(size) {
     this.grid = this.constructGrid(size);
+    this.squareLength = size;
   }
 
   constructGrid(size) {
@@ -56,7 +57,6 @@ class Map {
     let east = true;
     let west = true;
     
-    // debugger;
     if (x === 0) {
       north = false;
     }
@@ -82,5 +82,21 @@ class Map {
   }
 }
 
-let m = new Map(5);
+class MapWalker {
+  constructor(map) {
+    this.map = map;
+    this.startPosition = {
+      x: this.randomPostion(map.squareLength),
+      y: this.randomPostion(map.squareLength),
+    }
+  }
+
+  randomPostion(length) {
+    return Math.ceil(Math.random() * (length)) + 1;
+  }
+}
+
+let m = new Map(3);
+let mw = new MapWalker(m);
 console.log(m);
+console.log(mw);
