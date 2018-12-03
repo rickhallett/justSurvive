@@ -56,7 +56,7 @@ class Map {
     let south = true;
     let east = true;
     let west = true;
-    
+
     if (x === 0) {
       north = false;
     }
@@ -77,7 +77,7 @@ class Map {
       north,
       south,
       east,
-      west
+      west,
     };
   }
 }
@@ -85,14 +85,52 @@ class Map {
 class MapWalker {
   constructor(map) {
     this.map = map;
-    this.startPosition = {
-      x: this.randomPostion(map.squareLength),
-      y: this.randomPostion(map.squareLength),
-    }
+    this.position = {
+      // x: this.randomPostion(map.squareLength),
+      // y: this.randomPostion(map.squareLength),
+      x: 0,
+      y: 0,
+    };
   }
 
   randomPostion(length) {
-    return Math.ceil(Math.random() * (length)) + 1;
+    return Math.ceil(Math.random() * length) + 1;
+  }
+
+  moveNorth() {
+    if (this.map.grid[this.position.x][this.position.y].canMove.north) {
+      this.position.x--;
+    } else {
+      console.log('You cannot move north from here!');
+    }
+    return this.position;
+  }
+
+  moveSouth() {
+    if (this.map.grid[this.position.x][this.position.y].canMove.south) {
+      this.position.x++;
+    } else {
+      console.log('You cannot move south from here!');
+    }
+    return this.position;
+  }
+
+  moveEast() {
+    if (this.map.grid[this.position.x][this.position.y].canMove.east) {
+      this.position.y++;
+    } else {
+      console.log('You cannot move east from here!');
+    }
+    return this.position;
+  }
+
+  moveWest() {
+    if (this.map.grid[this.position.x][this.position.y].canMove.west) {
+      this.position.y--;
+    } else {
+      console.log('You cannot move west from here!');
+    }
+    return this.position;
   }
 }
 
