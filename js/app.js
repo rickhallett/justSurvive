@@ -15,6 +15,10 @@ class View {
     this.ctrl.initGame();
   }
 
+  stop() {
+    this.ctrl.stopGameClock();
+  }
+
   scan() {
     this.ctrl.pingData();
   }
@@ -75,18 +79,32 @@ class Model {
 //==============================
 
 class Controller {
-  constructor(view, model) {
+  constructor(view, model, gameClock) {
     this.view = view;
     this.model = model;
+    this.gameClock = new gameClock(true);
   }
 
   initGame() {
     if (!this.model.game.player.name) {
       // this.model.game.player.name = "Slayer";
       this.view.askForName();
+      this.initGameClock();
     } else {
       console.log("Game already initialised!");
     }
+  }
+
+  initGameClock() {
+    let self = this;
+    self.timerId = setTimeout( function tick() {
+      self.gameClock.runTime();
+      self.timerId = setTimeout( tick, 1000 ); // (*)
+    }, 1000 );
+  }
+
+  stopGameClock() {
+    clearInterval(this.timerId);
   }
 
   setName(name) {
@@ -126,12 +144,11 @@ class Controller {
 
 let view = (i = new View());
 let model = new Model(data);
-let game = new Controller(view, model);
+let game = new Controller(view, model, GameClock);
 
 view.setController(game);
 
+i.ready();
 
-
-// i.ready();
 // i.name("Lemming");
 // i.train();
