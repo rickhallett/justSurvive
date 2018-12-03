@@ -1,16 +1,3 @@
-let clockDisplay = new Vue({
-  el: "#timer",
-  data: {
-    clock: {
-      day: 'Mon',
-      date: '1',
-      month: 'Jan',
-      hour: '08:00',
-      year: '2019',
-    }
-  }
-});
-
 class GameClockData {
   constructor() {
     // iterable values
@@ -154,21 +141,17 @@ class GameClock extends GameClockData {
       this.hour = this.iterateHour.next().value;
     }
 
-    if ( this.watching ) {
-      // console.log(
-      //   `${this.day} ${this.date} ${this.month} ${this.hour} ${this.year}`,
-      // );
+    // console.log(
+    //   `${this.day} ${this.date} ${this.month} ${this.hour} ${this.year}`,
+    // );
 
-      // update Vue component
-      clockDisplay.clock.day = this.day;
-      clockDisplay.clock.date = this.date;
-      clockDisplay.clock.month = this.month;
-      clockDisplay.clock.hour = this.hour;
-      clockDisplay.clock.year = this.year;
-
+    return {
+      day: this.day,
+      date: this.date,
+      month: this.month,
+      hour: this.hour,
+      year: this.year
     }
-
-
 
   }
 }

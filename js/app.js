@@ -1,7 +1,20 @@
 console.log("Are you ready?");
 
 class View {
-  constructor() {}
+  constructor() {
+    this.clockDisplay = new Vue( {
+      el: "#timer",
+      data: {
+        clock: {
+          day: 'Mon',
+          date: '1',
+          month: 'Jan',
+          hour: '08:00',
+          year: '2019',
+        }
+      }
+    } );
+  }
 
   setController(ctrl) {
     this.ctrl = ctrl;
@@ -64,6 +77,15 @@ class View {
       `Gains! You have increased your strength by ${gains} to ${str}`
     );
   }
+
+  /* BROWSER DISPLAY */
+  updateClock(data) {
+    this.clockDisplay.clock.day = data.day;
+    this.clockDisplay.clock.date = data.date;
+    this.clockDisplay.clock.month = data.month;
+    this.clockDisplay.clock.hour = data.hour;
+    this.clockDisplay.clock.year = data.year;
+  }
 }
 
 //==============================
@@ -98,13 +120,17 @@ class Controller {
   initGameClock() {
     let self = this;
     self.timerId = setTimeout( function tick() {
-      self.gameClock.runTime();
+      self.view.updateClock(self.gameClock.runTime());
       self.timerId = setTimeout( tick, 1000 ); // (*)
     }, 1000 );
   }
 
   stopGameClock() {
     clearInterval(this.timerId);
+  }
+
+  clockInterface(){
+    
   }
 
   setName(name) {
