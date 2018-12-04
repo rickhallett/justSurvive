@@ -84,6 +84,14 @@ class MapWalker {
     return createdMap;
   }
 
+  printCreepers() {
+    this.map.grid.forEach(row => {
+      row.forEach(column => {
+        console.log(column.features.creepers);
+      });
+    });
+  }
+
   printAvailableDirections() {
     const directions = this.map.grid[this.position.x][this.position.y].canMove;
     const availableDirections = [];

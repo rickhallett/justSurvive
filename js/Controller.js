@@ -48,6 +48,8 @@ class Controller {
     const self = this;
     self.timerId = setTimeout(function tick() {
       self.clockInterface(self.gameClock.runTime());
+      // debugger;
+      self.mapWalker.map.creeperGenerator();
       self.timerId = setTimeout(tick, 1000); // (*)
     }, 1000);
   }
@@ -58,6 +60,10 @@ class Controller {
 
   clockInterface(timeData) {
     this.view.updateClock(timeData);
+  }
+
+  creeperGenerator() {
+    
   }
 
   setName(name) {

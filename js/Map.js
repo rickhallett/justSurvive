@@ -9,7 +9,7 @@ class Node {
   constructFeatures () {
     return {
       shrapnel: 0,
-      zombie: 0,
+      creepers: 0,
       food: 0,
       item: null,
       description: 'Nothing special here...',
@@ -67,5 +67,27 @@ class MapConstructor {
       east,
       west,
     };
+  }
+
+  creeperGenerator() {
+    this.grid.forEach( row => {
+      row.forEach( column => {
+        let chance = Math.ceil( Math.random() * 10 );
+        if ( chance > 8 ) {
+          let creeperQuantity = column.features.creepers;
+
+          if ( column.features.creepers < 1 ) {
+            creeperQuantity++;
+          }
+
+          if ( column.features.creepers >= 1 ) {
+            // debugger;
+            creeperQuantity = creeperQuantity * 1.1;
+          }
+
+          column.features.creepers = Math.ceil(creeperQuantity);
+        }
+      } );
+    } );
   }
 }
