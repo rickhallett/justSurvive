@@ -94,7 +94,7 @@ class MapWalker {
   }
 
   randomPostion(length) {
-    return Math.ceil(Math.random() * length) + 1;
+    return Math.ceil(Math.random() * (length - 1));
   }
 
   moveNorth() {
@@ -126,7 +126,7 @@ class MapWalker {
           this.position.y++;
           break;
         case 'west':
-          this.position.y--
+          this.position.y--;
           break;
         default:
           break;
@@ -137,9 +137,39 @@ class MapWalker {
 
     return this.position;
   }
+
+  printMap() {
+    let playerX = this.position.x;
+    let playerY = this.position.y;
+
+    // debugger;
+
+    for (let x_axis in this.map.grid) {
+      let row = '';
+      for (let y_axis in this.map.grid) {
+        let playerHere = false;
+        if (
+          Number.parseInt(x_axis) === playerX &&
+          Number.parseInt(y_axis) === playerY
+        )
+          playerHere = true;
+
+        if (playerHere) {
+          let coord = `${x_axis}${y_axis}`;
+          row += `(${coord})`;
+        } else {
+          let coord = ` ${x_axis}${y_axis} `;
+          row += `${coord}`;
+        }
+        
+      }
+      console.log(`${row}\n`);
+    }
+  }
 }
 
-let m = new Map(3);
+let m = new Map(10);
 let mw = new MapWalker(m);
 console.log(m);
 console.log(mw);
+mw.printMap();
