@@ -18,6 +18,22 @@ class Controller {
     this.mapWalker = mapWalker;
   }
 
+  moveNorth () { 
+    return this.mapWalker.moveNorth();
+  }
+
+  moveSouth () {
+    return this.mapWalker.moveSouth();
+  }
+
+  moveEast () { 
+    return this.mapWalker.moveEast();
+  }
+
+  moveWest () { 
+    return this.mapWalker.moveWest();
+  }
+
   initGame() {
     if (!this.model.game.player.name) {
       // this.model.game.player.name = "Slayer";

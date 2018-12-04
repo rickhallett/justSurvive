@@ -48,13 +48,21 @@ class View {
     this.ctrl.setName(name);
   }
 
-  moveNorth() {}
+  moveNorth() {
+    console.log(this.ctrl.moveNorth());
+  }
 
-  moveSouth() {}
+  moveSouth() {
+    tconsole.log(his.ctrl.moveSouth());
+  }
 
-  moveEast() {}
+  moveEast() {
+    console.log(this.ctrl.moveEast());
+  }
 
-  moveWEat() {}
+  moveWest() {
+    console.log(this.ctrl.moveWest());
+  }
 
   /*
     CONSOLE DISPLAY
