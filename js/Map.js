@@ -72,8 +72,8 @@ class MapConstructor {
   creeperGenerator() {
     this.grid.forEach( row => {
       row.forEach( column => {
-        let chance = Math.ceil( Math.random() * 10 );
-        if ( chance > 8 ) {
+        let chance = Math.ceil( Math.random() * 100 );
+        if ( chance > 98 ) {
           let creeperQuantity = column.features.creepers;
 
           if ( column.features.creepers < 1 ) {

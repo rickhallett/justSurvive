@@ -39,6 +39,7 @@ class Controller {
       // this.model.game.player.name = "Slayer";
       this.view.askForName();
       this.initGameClock();
+      this.startTimeLapsed();
     } else {
       console.log('Game already initialised!');
     }
@@ -52,6 +53,21 @@ class Controller {
       self.mapWalker.map.creeperGenerator();
       self.timerId = setTimeout(tick, 1000); // (*)
     }, 1000);
+  }
+
+  startTimeLapsed () {
+    this.startTime = new Date();
+  };
+
+  findTimeLapsed () {
+    this.endTime = new Date();
+    let timeDiff = this.endTime - this.startTime; //in ms
+    // strip the ms
+    timeDiff /= 1000;
+
+    // get seconds 
+    const seconds = Math.round( timeDiff );
+    return `${seconds} seconds`;
   }
 
   stopGameClock() {

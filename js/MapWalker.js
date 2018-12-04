@@ -86,9 +86,12 @@ class MapWalker {
 
   printCreepers() {
     this.map.grid.forEach(row => {
+      let printRow = '';
       row.forEach(column => {
-        console.log(column.features.creepers);
+        // console.log(column.features.creepers);
+        printRow = printRow.concat(`${column.features.creepers.toString()}  `);
       });
+      console.log(`${printRow}\n`);
     });
   }
 

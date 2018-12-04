@@ -64,6 +64,10 @@ class View {
     console.log(this.ctrl.moveWest());
   }
 
+  stillHere() {
+    console.log(`You have survived ${this.ctrl.findTimeLapsed()}`);
+  }
+
   /*
     CONSOLE DISPLAY
   */
