@@ -133,6 +133,7 @@ class MapWalker {
       }
     } else {
       console.log(`You cannot move ${direction} from here!`);
+      this.printAvailableDirections();
     }
 
     return this.position;
@@ -161,10 +162,19 @@ class MapWalker {
           let coord = ` ${x_axis}${y_axis} `;
           row += `${coord}`;
         }
-        
       }
       console.log(`${row}\n`);
     }
+  }
+
+  printAvailableDirections() {
+    // const directions = new Array(this.map.grid[this.position.x][this.position.y].canMove);
+    const directions = this.map.grid[this.position.x][this.position.y].canMove;
+    const availableDirections = []
+    Object.keys(directions).forEach((key) => {
+      if(directions[key] === true) availableDirections.push(key);
+    })
+    console.log(`You can move${availableDirections.map((dir) => ` ${dir}`)} from here.`);
   }
 }
 
@@ -173,3 +183,4 @@ let mw = new MapWalker(m);
 console.log(m);
 console.log(mw);
 mw.printMap();
+mw.printAvailableDirections();
